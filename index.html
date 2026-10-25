@@ -11,12 +11,32 @@
   h1 { font-size: 40px; margin: 16px 0 4px; } h1 span { color: #f3c55a; }
   p { margin: 4px 0; color: #dbe4ff; } a { color: #f3c55a; }
   .langs { margin: 18px 0; }
+  .play { display: inline-flex; align-items: center; gap: 12px; margin: 6px 0 10px; padding: 10px 20px 10px 16px; border-radius: 14px;
+    background: #000; border: 1px solid rgba(255,255,255,.35); color: #fff; text-align: left; opacity: .9; cursor: default; }
+  .play svg { width: 28px; height: 28px; flex-shrink: 0; }
+  .play small { display: block; font-size: 11px; letter-spacing: .6px; text-transform: uppercase; color: #cbd5e1; line-height: 1.2; }
+  .play b { display: block; font-size: 20px; font-weight: 600; line-height: 1.2; }
+  .soon { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .5px; color: #02102e; background: #f3c55a; padding: 3px 12px; border-radius: 999px; margin-bottom: 8px; }
+  .soon-text p { font-size: 15px; margin: 2px 0; }
 </style>
 </head>
 <body>
 <div>
   <img src="icon-512.png" alt="LuachPlus">
   <h1>Luach<span>Plus</span></h1>
+  <div class="langs">
+    <div class="play" aria-label="Google Play — coming soon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f3c55a" d="M5 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5Z"/></svg>
+      <span><small>Coming soon on</small><b>Google Play</b></span>
+    </div>
+    <div><span class="soon">Coming soon · בקרוב · Скоро · Demnächst</span></div>
+    <div class="soon-text">
+      <p>The app is in testing and will be available on Google Play soon.</p>
+      <p dir="rtl">האפליקציה נמצאת בשלב בדיקות ותהיה זמינה בקרוב ב־Google Play.</p>
+      <p>Приложение проходит тестирование и скоро появится в Google Play.</p>
+      <p>Die App befindet sich in der Testphase und ist bald bei Google Play erhältlich.</p>
+    </div>
+  </div>
   <div class="langs">
     <p>Jewish &amp; Gregorian calendar · holidays · zmanim · Google Calendar</p>
     <p dir="rtl">לוח שנה עברי ולועזי · חגים · זמני היום · יומן Google</p>
