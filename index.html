@@ -1,68 +1,856 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <link rel="canonical" href="https://toradoctor.com/luach/">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LuachPlus — Jewish Calendar</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LuachPlus — Jewish calendar for Android</title>
+<meta name="description" content="LuachPlus — free Android app: Hebrew and Gregorian calendar, holidays, weekly parsha, candle lighting, zmanim, yahrzeit, Google Calendar sync. לוח שנה עברי · Еврейский календарь · Jüdischer Kalender.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://toradoctor.com/luach/">
+<meta property="og:title" content="LuachPlus — Jewish calendar for Android">
+<meta property="og:description" content="Hebrew and Gregorian dates in one calendar: holidays, parsha, candle lighting, zmanim, yahrzeit, Google Calendar sync. Free, no ads.">
+<meta property="og:image" content="https://toradoctor.com/luach/icon-512.png">
+<meta name="theme-color" content="#061633">
+<link rel="icon" href="shots/icon.webp" type="image/webp">
+<link rel="apple-touch-icon" href="icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Noto+Serif:wght@600&family=Rubik:wght@400;500;600&display=swap">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "MobileApplication", "name": "LuachPlus", "operatingSystem": "Android 8.0+", "applicationCategory": "LifestyleApplication", "inLanguage": ["en", "he", "ru", "de"], "url": "https://toradoctor.com/luach/", "downloadUrl": "https://play.google.com/store/apps/details?id=com.toradoctor.luach", "installUrl": "https://play.google.com/store/apps/details?id=com.toradoctor.luach", "image": "https://toradoctor.com/luach/icon-512.png", "description": "Hebrew and Gregorian calendar for Android: holidays, weekly parsha, candle lighting, zmanim, yahrzeit and events by Hebrew date, synced with Google Calendar.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Organization", "name": "Tora Doctor", "url": "https://toradoctor.com/"}}</script>
 <style>
-  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
-    background: radial-gradient(ellipse at 50% 25%, #163f96, #0a1f55 55%, #02102e); color: #fff; font: 17px/1.6 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; padding: 24px 16px; box-sizing: border-box; }
-  img { width: 120px; height: 120px; border-radius: 26px; box-shadow: 0 10px 30px rgba(0,0,0,.45); }
-  h1 { font-size: 40px; margin: 16px 0 4px; } h1 span { color: #f3c55a; }
-  p { margin: 4px 0; color: #dbe4ff; } a { color: #f3c55a; }
-  .langs { margin: 18px 0; }
-  .play { display: inline-flex; align-items: center; gap: 12px; margin: 6px 0 10px; padding: 10px 20px 10px 16px; border-radius: 14px;
-    background: #000; border: 1px solid rgba(255,255,255,.35); color: #fff; text-align: left; opacity: .9; cursor: default; }
-  .play svg { width: 28px; height: 28px; flex-shrink: 0; }
-  .play small { display: block; font-size: 11px; letter-spacing: .6px; text-transform: uppercase; color: #cbd5e1; line-height: 1.2; }
-  .play b { display: block; font-size: 20px; font-weight: 600; line-height: 1.2; }
-  .soon { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .5px; color: #02102e; background: #f3c55a; padding: 3px 12px; border-radius: 999px; margin-bottom: 8px; }
-  .soon-text p { font-size: 15px; margin: 2px 0; }
-  .dev { margin: 22px auto 18px; max-width: 560px; padding: 18px 16px; border: 1px solid rgba(243,197,90,.45); border-radius: 16px; background: rgba(255,255,255,.05); }
-  .dev h2 { font-size: 19px; margin: 0 0 8px; color: #f3c55a; }
-  .dev p { font-size: 15px; }
-  .devbtns { margin-top: 12px !important; }
-  .devbtn { display: inline-block; margin: 4px; padding: 9px 16px; border-radius: 10px; background: #f3c55a; color: #02102e !important; font-weight: 600; text-decoration: none; }
-  .devbtn.alt { background: transparent; color: #f3c55a !important; border: 1px solid #f3c55a; }
-  .home { position: fixed; top: 14px; left: 14px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(243,197,90,.5); background: rgba(2,16,46,.7); color: #f3c55a; font-size: 14px; font-weight: 600; text-decoration: none; z-index: 5; }
-  .home:hover { background: rgba(243,197,90,.15); }
+:root{
+  --bg:#061633; --surface:#0b2150; --soft:#112c66; --line:#1d3a78;
+  --fg:#eef3ff; --muted:#9db0d8; --sky:#8fb8ff; --gold:#f3c55a; --ink:#02102e;
+  --f-display:"Frank Ruhl Libre","Noto Serif",Georgia,serif;
+  --f-body:"Rubik","Noto Sans",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16.5px/1.65 var(--f-body);
+  background-image:radial-gradient(1000px 560px at 85% -140px,rgba(30,78,180,.55),transparent 70%),radial-gradient(700px 420px at 0% 34%,rgba(243,197,90,.06),transparent 70%);
+  background-repeat:no-repeat}
+a{color:var(--sky)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(6,22,51,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:18px;min-height:60px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font:600 18px/1 var(--f-body);white-space:nowrap}
+.brand b{color:var(--gold);font-weight:600}
+.brand img{width:34px;height:34px;border-radius:9px}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.nav::-webkit-scrollbar{display:none}
+.nav a{color:var(--muted);text-decoration:none;font-size:14.5px;padding:6px 8px;border-radius:8px;white-space:nowrap}
+.nav a:hover{color:var(--fg);background:var(--soft)}
+.getlink{margin-inline-start:auto;display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:var(--ink);font-weight:600;font-size:14px;text-decoration:none;padding:7px 14px;border-radius:999px;white-space:nowrap}
+.getlink svg{width:16px;height:16px}
+.getlink svg path{fill:var(--ink)}
+.langs{display:flex;gap:2px;border:1px solid var(--line);border-radius:999px;padding:3px}
+.langs a{font-size:13px;color:var(--muted);text-decoration:none;padding:4px 9px;border-radius:999px;line-height:1.2}
+.langs a[aria-current]{background:var(--sky);color:var(--ink);font-weight:600}
+@media (max-width:980px){.nav{display:none}.bar .wrap{justify-content:space-between}}
+
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding-block:64px 40px}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--sky);font-weight:600;letter-spacing:.03em;font-size:15px}
+.eyebrow img{width:44px;height:44px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.eyebrow a{color:var(--muted);font-weight:400;text-decoration:none}
+.eyebrow a:hover{color:var(--fg)}
+.hero h1{font:700 clamp(36px,5.6vw,62px)/1.1 var(--f-display);color:var(--gold);margin:22px 0 6px;text-wrap:balance}
+[lang=en] .hero h1,[lang=ru] .hero h1,[lang=de] .hero h1{font-family:"Noto Serif",Georgia,serif;font-weight:600;font-size:clamp(32px,4.6vw,52px)}
+.src{color:var(--muted);font-size:15px;margin:0 0 24px}
+.lead{font-size:19px;line-height:1.6;max-width:34em;margin:0 0 30px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:14px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid transparent}
+.btn.play{background:var(--fg);color:var(--bg)}
+.btn.play:hover{background:#fff}
+.btn.play svg{width:22px;height:22px;flex:none}
+.btn.ghost{color:var(--sky);border-color:var(--line)}
+.btn.ghost:hover{background:var(--soft)}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;padding:0;margin:26px 0 0;color:var(--muted);font-size:14.5px}
+.facts li{display:flex;align-items:center;gap:7px}
+.facts li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+.phones{position:relative;justify-self:center;width:min(300px,100%);aspect-ratio:300/560}
+.phone{position:absolute;width:76%;border-radius:30px;border:6px solid #1a3672;box-shadow:0 30px 60px rgba(0,0,0,.5);overflow:hidden;background:var(--surface)}
+.phone img{display:block;width:100%;height:auto}
+.phone.a{inset-inline-start:0;top:0;z-index:2}
+.phone.b{inset-inline-end:0;top:12%;opacity:.55;transform:rotate(4deg)}
+[dir=rtl] .phone.b{transform:rotate(-4deg)}
+
+.today{display:grid;grid-template-columns:auto repeat(3,1fr);border:1px solid var(--line);border-radius:18px;background:var(--surface);overflow:hidden;margin-block:8px 24px}
+.today .lbl{padding:18px 22px;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase;border-inline-end:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;gap:2px;max-width:220px}
+.today .lbl small{text-transform:none;letter-spacing:0;font-size:12.5px;opacity:.85}
+.today .cell{padding:16px 20px;border-inline-start:1px solid var(--line);min-width:0}
+.today .cell:nth-child(2){border-inline-start:0}
+.today .cell span{display:block;color:var(--muted);font-size:13.5px}
+.today .cell b{display:block;font:600 20px/1.35 var(--f-body)}
+.today .cell small{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+.today .cell:last-child b{color:var(--gold)}
+.today .he{font-family:var(--f-display);font-size:16px;color:#cfdcff}
+@media (max-width:760px){.today{grid-template-columns:1fr}.today .lbl{max-width:none;border-inline-end:0;border-bottom:1px solid var(--line)}.today .cell{border-inline-start:0;border-bottom:1px solid var(--line)}.today .cell:last-child{border-bottom:0}}
+
+section{padding-block:56px 8px}
+h2{font:700 clamp(28px,3.6vw,38px)/1.2 var(--f-display);margin:0 0 22px;text-wrap:balance}
+[lang=en] h2,[lang=ru] h2,[lang=de] h2{font-family:"Noto Serif",Georgia,serif;font-weight:600}
+h3{font:600 19px/1.35 var(--f-body);margin:0 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.cols>div{min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+.card h3{color:var(--gold)}
+
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.feat{background:var(--surface);padding:22px 22px 18px;min-width:0}
+.feat h3{color:var(--sky);font-size:17px}
+.feat p{color:#c8d4f0;font-size:15.5px;margin:0}
+
+.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:38px 1fr;gap:14px;align-items:start;padding-block:10px}
+.steps li::before{content:counter(s);width:38px;height:38px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold);display:grid;place-items:center;font:600 16px/1 var(--f-body)}
+.steps p{margin:0;color:#c8d4f0}
+
+.faq{display:grid;gap:10px;max-width:820px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:14px}
+summary{cursor:pointer;list-style:none;padding:16px 20px;font-weight:600;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--sky);font-size:22px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{padding:0 20px 16px;margin:0;color:#c8d4f0}
+
+.shots{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px}
+.shots figure{margin:0;flex:0 0 210px;scroll-snap-align:start}
+.shots img{display:block;width:100%;height:auto;aspect-ratio:420/747;border-radius:22px;border:5px solid #1a3672}
+.shots figcaption{text-align:center;color:var(--muted);font-size:14px;margin-top:8px}
+
+.copyrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:10px}
+.val{font:500 17px/1.3 var(--f-body);direction:ltr;unicode-bidi:isolate;user-select:all;background:var(--soft);border:1px solid var(--line);padding:9px 13px;border-radius:10px}
+.copy{background:none;border:1px solid var(--line);color:var(--sky);border-radius:10px;padding:9px 13px;font:inherit;font-size:14px;cursor:pointer}
+.copy:hover{background:var(--soft)}
+.btn.sm{padding:9px 14px;font-size:14.5px;border-radius:10px}
+.btn.gold{background:var(--gold);color:var(--ink)}
+.btn.wa{color:var(--sky);border-color:var(--line)}
+.btn.wa:hover{background:var(--soft)}
+
+.final{margin-top:56px;display:grid;grid-template-columns:auto 1fr auto;gap:18px 24px;align-items:center;border:1px solid rgba(243,197,90,.45);background:linear-gradient(135deg,rgba(243,197,90,.10),rgba(143,184,255,.06));border-radius:18px;padding:22px 26px}
+.final img{width:64px;height:64px;border-radius:16px}
+.final h2{font-size:24px;margin:0 0 4px;color:var(--gold)}
+.final p{margin:0;color:var(--fg)}
+@media (max-width:760px){.final{grid-template-columns:1fr;padding:20px}}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-block:26px 40px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center}
+footer a{color:var(--muted)}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;padding-block:40px 24px;gap:36px}
+  .phones{width:min(250px,80%)}
+  .cols,.steps{grid-template-columns:1fr}
+  .feats{grid-template-columns:1fr 1fr}
+}
+@media (max-width:540px){.feats{grid-template-columns:1fr}.lead{font-size:17.5px}.bar .wrap{gap:10px}.brand{font-size:16px;gap:8px}.langs a{padding:4px 7px}}
+@media (max-width:440px){.brand span{display:none}.getlink{padding:6px 11px;font-size:13px}}
 </style>
 </head>
 <body>
-<a class="home" href="/"><img src="/logo-mark.webp" alt="" width="24" height="18" style="height:18px;width:auto;display:block"><span>Tora Doctor</span></a>
-<div>
-  <img src="icon-512.png" alt="LuachPlus">
-  <h1>Luach<span>Plus</span></h1>
-  <div class="langs">
-    <div class="play" aria-label="Google Play — coming soon">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f3c55a" d="M5 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5Z"/></svg>
-      <span><small>Coming soon on</small><b>Google Play</b></span>
+
+<div class="lang" data-lang="en" lang="en" dir="ltr">
+<header class="bar"><div class="wrap">
+  <a class="brand" href="#en-top"><img src="shots/icon.webp" alt="" width="34" height="34"><span>Luach<b>Plus</b></span></a>
+  <nav class="nav" aria-label="LuachPlus"><a href="#en-features">Features</a><a href="#en-guide">How to start</a><a href="#en-faq">FAQ</a><a href="#en-shots">Screenshots</a></nav>
+  <a class="getlink" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=en" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Google Play</a>
+  <div class="langs"><a href="#en" hreflang="en" aria-current="true">EN</a><a href="#he" hreflang="he">עב</a><a href="#ru" hreflang="ru">RU</a><a href="#de" hreflang="de">DE</a></div>
+</div></header>
+<main class="wrap" id="en-top">
+  <div class="hero">
+    <div>
+      <div class="eyebrow"><img src="shots/icon.webp" alt="" width="44" height="44"><span>LuachPlus · <a href="/">by Tora Doctor</a></span></div>
+      <h1>Hebrew and Gregorian dates in one calendar</h1>
+      <p class="src">Free Android app</p>
+      <p class="lead">Holidays, the weekly parsha, candle lighting and zmanim for your city — together with your own events from Google Calendar. Enter a yahrzeit or a birthday by the Hebrew date once, and it is in your calendar every year.</p>
+      <div class="cta"><a class="btn play" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=en" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Get it on Google Play</a><a class="btn ghost" href="#en-guide">How to start</a></div>
+      <ul class="facts"><li>Free</li><li>No ads</li><li>No registration</li><li>English · עברית · Русский · Deutsch</li></ul>
     </div>
-    <div><span class="soon">Coming soon · בקרוב · Скоро · Demnächst</span></div>
-    <div class="soon-text">
-      <p>The app is in testing and will be available on Google Play soon.</p>
-      <p dir="rtl">האפליקציה נמצאת בשלב בדיקות ותהיה זמינה בקרוב ב־Google Play.</p>
-      <p>Приложение проходит тестирование и скоро появится в Google Play.</p>
-      <p>Die App befindet sich in der Testphase und ist bald bei Google Play erhältlich.</p>
+    <div class="phones" aria-hidden="true">
+      <div class="phone b"><img src="shots/en-hero3.webp" alt="" width="360" height="640"></div>
+      <div class="phone a"><img src="shots/en-hero1.webp" alt="" width="360" height="640"></div>
     </div>
   </div>
-  <div class="langs">
-    <p>Jewish &amp; Gregorian calendar · holidays · zmanim · Google Calendar</p>
-    <p dir="rtl">לוח שנה עברי ולועזי · חגים · זמני היום · יומן Google</p>
-    <p>Еврейский и обычный календарь · праздники · зманим · Google Календарь</p>
-    <p>Jüdischer und gregorianischer Kalender · Feiertage · Zmanim · Google Kalender</p>
-  </div>
-  <div class="dev">
-    <h2>Website &amp; app development · פיתוח אתרים ואפליקציות</h2>
-    <p>LuachPlus was built by Tora Doctor. We also develop websites and apps for communities, businesses and Jewish projects.</p>
-    <p dir="rtl">LuachPlus פותחה על ידי Tora Doctor. אנו מפתחים גם אתרים ואפליקציות לקהילות, לעסקים ולפרויקטים יהודיים.</p>
-    <p>LuachPlus создан Tora Doctor. Мы разрабатываем сайты и приложения для общин, бизнеса и еврейских проектов.</p>
-    <p>LuachPlus wurde von Tora Doctor entwickelt. Wir entwickeln auch Websites und Apps für Gemeinden, Unternehmen und jüdische Projekte.</p>
-    <p class="devbtns"><a class="devbtn" href="mailto:apps@toradoctor.com?subject=Website%20%2F%20App%20development">apps@toradoctor.com</a> <a class="devbtn alt" href="https://wa.me/4917661261450" target="_blank" rel="noopener">WhatsApp</a></p>
-  </div>
-  <p><a href="privacy.html">Privacy Policy · מדיניות פרטיות · Конфиденциальность · Datenschutz</a></p>
-  <p style="margin-top:18px;font-size:14px">© 2026 <a href="/">Tora Doctor</a> · apps@toradoctor.com<br><span style="opacity:.8">Founder &amp; developer · מייסד ומפתח · Основатель и разработчик: Shaul Nekrich</span></p>
+  <div class="today" data-today hidden><div class="lbl">Today in the calendar<small>calculated on this page, just like in the app</small></div><div class="cell"><span>Hebrew date</span><b data-v="0"></b><small data-s="0"></small></div><div class="cell"><span>Weekly parsha</span><b data-v="1"></b><small data-s="1"></small></div><div class="cell"><span>Next holiday</span><b data-v="2"></b><small data-s="2"></small></div></div>
+  <section id="en-features"><h2>Features</h2><div class="feats"><div class="feat"><h3>Two calendars in one grid</h3><p>Every day shows both dates. Browse by Gregorian or by Hebrew months and jump to any date.</p></div><div class="feat"><h3>Holidays and parsha</h3><p>All holidays, fasts, Rosh Chodesh, special Shabbatot and the Omer count. Israel or diaspora custom.</p></div><div class="feat"><h3>Candle lighting and zmanim</h3><p>Candle lighting and havdalah, sunrise, latest Shma and Tefilla, mincha, plag, sunset and nightfall — for your city or by GPS.</p></div><div class="feat"><h3>Events by Hebrew date</h3><p>A birthday or a yahrzeit repeats every year (or every month) on its Hebrew date — right in Google Calendar.</p></div><div class="feat"><h3>Yahrzeit</h3><p>Enter the date of death by the Hebrew or Gregorian calendar, before or after sunset. The dates go into your calendar for years ahead, with a ready message for the family.</p></div><div class="feat"><h3>Reminders</h3><p>Candle lighting, the Omer count, the start and end of fasts, and a yahrzeit on the evening before.</p></div><div class="feat"><h3>Home screen widget</h3><p>The Hebrew date, the weekly parsha and candle lighting time at a glance.</p></div><div class="feat"><h3>Google Calendar</h3><p>Your events appear in the grid. Create, edit and delete them right in the app. Multi-day events show as one bar.</p></div><div class="feat"><h3>Four languages</h3><p>English, Hebrew, Russian and German. Holiday names in the app language or in a language you choose.</p></div></div></section>
+  <section id="en-guide"><h2>How to start</h2><ol class="steps"><li><div><h3>Install</h3><p>Get LuachPlus on Google Play and allow access to your calendar, so your events appear in the grid.</p></div></li><li><div><h3>Choose your city</h3><p>☰ → City, or “Use my location” in ☰ → Settings. The city sets the Israel or diaspora custom and the candle lighting minutes; both can be changed there.</p></div></li><li><div><h3>Add an event</h3><p>Tap “+”, choose a Gregorian or Hebrew date and “Repeat: every year on the Hebrew date” for a birthday or a yahrzeit.</p></div></li><li><div><h3>Yahrzeit</h3><p>☰ → Yahrzeit → “+ Add”. Enter the name and the date of death, and the dates go into your calendar for years ahead.</p></div></li><li><div><h3>Reminders and widget</h3><p>☰ → Settings → Reminders. In the same place: “Home screen widget”.</p></div></li><li><div><h3>Holidays in Google Calendar</h3><p>Optional: ☰ → “Holidays → Google Calendar” writes them to a calendar you choose. ☰ → Settings → “Remove written holidays” removes them again.</p></div></li></ol></section>
+  <section id="en-faq"><h2>Frequently asked questions</h2><div class="faq"><details><summary>Is it really free?</summary><p>Yes. There is no subscription, no in-app purchase and no advertising.</p></details><details><summary>Where are my events stored?</summary><p>In your own Google Calendar on the phone. The app has no server of its own and sends your data nowhere. Settings such as the city and language stay on the phone.</p></details><details><summary>Is there an iPhone version?</summary><p>Not yet. LuachPlus runs on Android 8.0 and newer.</p></details><details><summary>How is the yahrzeit date calculated?</summary><p>By the Hebrew date of death, following the accepted rules for Adar in a leap year and for 30 Cheshvan and 30 Kislev. If the person passed away after sunset, mark it, and the next Hebrew day is used.</p></details><details><summary>I wrote holidays to Google Calendar and want to remove them</summary><p>☰ → Settings → “Remove written holidays”, then choose the calendar. Everything the app wrote is removed at once; your own events and yahrzeits stay.</p></details><details><summary>How many minutes before sunset is candle lighting?</summary><p>It is set by the city you choose (for example, 40 minutes in Jerusalem) and can be changed in ☰ → Settings → Candle lighting.</p></details><details><summary>I have an idea or found a mistake</summary><p>Write to apps@toradoctor.com. We read every message.</p></details></div></section>
+  <section id="en-shots"><h2>Screenshots</h2><div class="shots"><figure><img loading="lazy" src="shots/en-1.webp" alt="Hebrew and Gregorian dates in one calendar" width="420" height="747"><figcaption>Hebrew and Gregorian dates in one calendar</figcaption></figure><figure><img loading="lazy" src="shots/en-2.webp" alt="Browse by Hebrew months" width="420" height="747"><figcaption>Browse by Hebrew months</figcaption></figure><figure><img loading="lazy" src="shots/en-3.webp" alt="Holidays, weekly parsha and candle lighting" width="420" height="747"><figcaption>Holidays, weekly parsha and candle lighting</figcaption></figure><figure><img loading="lazy" src="shots/en-4.webp" alt="Zmanim for your city" width="420" height="747"><figcaption>Zmanim for your city</figcaption></figure><figure><img loading="lazy" src="shots/en-5.webp" alt="Events by Hebrew date — straight to Google Calendar" width="420" height="747"><figcaption>Events by Hebrew date — straight to Google Calendar</figcaption></figure></div></section>
+  <section id="en-contact"><h2>Contact and development</h2>
+    <div class="cols">
+      <div class="card"><h3>Contact</h3><p>Questions, ideas and bug reports:</p><div class="copyrow"><span class="val">apps@toradoctor.com</span><button type="button" class="copy" data-v="apps@toradoctor.com">Copy</button><a class="btn sm wa" href="https://wa.me/4917661261450" target="_blank" rel="noopener">WhatsApp</a></div></div>
+      <div class="card"><h3>Websites and apps</h3><p>LuachPlus was built by Tora Doctor. We also develop websites and apps for communities, businesses and Jewish projects.</p><div class="copyrow"><a class="btn sm gold" href="mailto:apps@toradoctor.com?subject=Website%20/%20app%20development">apps@toradoctor.com</a><a class="btn sm wa" href="https://wa.me/4917661261450" target="_blank" rel="noopener">WhatsApp</a></div></div>
+    </div>
+  </section>
+  <div class="final"><img src="shots/icon.webp" alt="" width="64" height="64"><div><h2>LuachPlus</h2><p>Hebrew and Gregorian dates in one calendar</p></div><a class="btn play" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=en" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Get it on Google Play</a></div>
+</main>
+<footer><div class="wrap">
+  <span>© 2026 <a href="/">Tora Doctor</a></span><span>Founder and developer: Shaul Nekrich</span><a href="privacy.html">Privacy Policy</a><a href="#en-top">Top</a>
+</div></footer>
 </div>
+<div class="lang" data-lang="he" lang="he" dir="rtl" hidden>
+<header class="bar"><div class="wrap">
+  <a class="brand" href="#he-top"><img src="shots/icon.webp" alt="" width="34" height="34"><span>Luach<b>Plus</b></span></a>
+  <nav class="nav" aria-label="LuachPlus"><a href="#he-features">יכולות</a><a href="#he-guide">איך מתחילים</a><a href="#he-faq">שאלות נפוצות</a><a href="#he-shots">צילומי מסך</a></nav>
+  <a class="getlink" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=iw" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Google Play</a>
+  <div class="langs"><a href="#en" hreflang="en">EN</a><a href="#he" hreflang="he" aria-current="true">עב</a><a href="#ru" hreflang="ru">RU</a><a href="#de" hreflang="de">DE</a></div>
+</div></header>
+<main class="wrap" id="he-top">
+  <div class="hero">
+    <div>
+      <div class="eyebrow"><img src="shots/icon.webp" alt="" width="44" height="44"><span>LuachPlus · <a href="/">מבית Tora Doctor</a></span></div>
+      <h1>לוח עברי ולועזי ביחד</h1>
+      <p class="src">אפליקציה חינמית לאנדרואיד</p>
+      <p class="lead">חגים, פרשת השבוע, זמני הדלקת נרות וזמני היום לעיר שלכם — יחד עם האירועים שלכם מיומן Google. יארצייט או יום הולדת לפי התאריך העברי מכניסים פעם אחת, והם מופיעים ביומן בכל שנה.</p>
+      <div class="cta"><a class="btn play" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=iw" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>הורדה ב־Google Play</a><a class="btn ghost" href="#he-guide">איך מתחילים</a></div>
+      <ul class="facts"><li>חינם</li><li>בלי פרסומות</li><li>בלי הרשמה</li><li>עברית · English · Русский · Deutsch</li></ul>
+    </div>
+    <div class="phones" aria-hidden="true">
+      <div class="phone b"><img src="shots/he-hero3.webp" alt="" width="360" height="640"></div>
+      <div class="phone a"><img src="shots/he-hero1.webp" alt="" width="360" height="640"></div>
+    </div>
+  </div>
+  <div class="today" data-today hidden><div class="lbl">היום בלוח<small>מחושב בדף הזה, בדיוק כמו באפליקציה</small></div><div class="cell"><span>תאריך עברי</span><b data-v="0"></b><small data-s="0"></small></div><div class="cell"><span>פרשת השבוע</span><b data-v="1"></b><small data-s="1"></small></div><div class="cell"><span>החג הקרוב</span><b data-v="2"></b><small data-s="2"></small></div></div>
+  <section id="he-features"><h2>יכולות</h2><div class="feats"><div class="feat"><h3>שני לוחות ברשת אחת</h3><p>בכל יום מופיעים שני התאריכים. מדפדפים לפי חודשים לועזיים או עבריים ועוברים לכל תאריך.</p></div><div class="feat"><h3>חגים ופרשות</h3><p>כל החגים, הצומות, ראשי החודשים, השבתות המיוחדות וספירת העומר. מנהג ארץ ישראל או חוץ לארץ.</p></div><div class="feat"><h3>הדלקת נרות וזמני היום</h3><p>הדלקת נרות והבדלה, הנץ, סוף זמן ק״ש ותפילה, מנחה, פלג, שקיעה וצאת הכוכבים — לעיר שלכם או לפי GPS.</p></div><div class="feat"><h3>אירועים לפי תאריך עברי</h3><p>יום הולדת או יארצייט חוזרים כל שנה (או כל חודש) בתאריך העברי — ישר ביומן Google.</p></div><div class="feat"><h3>יארצייט</h3><p>מזינים את תאריך הפטירה, עברי או לועזי, לפני השקיעה או אחריה. התאריכים נכנסים ליומן לשנים קדימה, עם הודעה מוכנה לבני המשפחה.</p></div><div class="feat"><h3>תזכורות</h3><p>הדלקת נרות, ספירת העומר, תחילת הצום וסופו, ויארצייט בערב שלפני.</p></div><div class="feat"><h3>ווידג׳ט למסך הבית</h3><p>התאריך העברי, פרשת השבוע וזמן הדלקת הנרות במבט אחד.</p></div><div class="feat"><h3>יומן Google</h3><p>האירועים שלכם מופיעים ברשת. יוצרים, עורכים ומוחקים אותם ישר מהאפליקציה. אירוע של כמה ימים מוצג כפס אחד.</p></div><div class="feat"><h3>ארבע שפות</h3><p>עברית, אנגלית, רוסית וגרמנית. שמות החגים בשפת האפליקציה או בשפה שתבחרו.</p></div></div></section>
+  <section id="he-guide"><h2>איך מתחילים</h2><ol class="steps"><li><div><h3>התקנה</h3><p>מורידים את LuachPlus מ־Google Play ומאשרים גישה ליומן, כדי שהאירועים שלכם יופיעו ברשת.</p></div></li><li><div><h3>בחירת עיר</h3><p>☰ ← עיר, או „לפי המיקום שלי” ב־☰ ← הגדרות. העיר קובעת את מנהג ארץ ישראל או חוץ לארץ ואת דקות הדלקת הנרות, ואפשר לשנות את שניהם שם.</p></div></li><li><div><h3>הוספת אירוע</h3><p>לוחצים „+”, בוחרים תאריך לועזי או עברי ו„חזרה: כל שנה לפי התאריך העברי” ליום הולדת או ליארצייט.</p></div></li><li><div><h3>יארצייט</h3><p>☰ ← יארצייט ← „+ הוספה”. מזינים שם ותאריך פטירה, והתאריכים נכנסים ליומן לשנים קדימה.</p></div></li><li><div><h3>תזכורות וווידג׳ט</h3><p>☰ ← הגדרות ← תזכורות. באותו מקום: „ווידג׳ט למסך הבית”.</p></div></li><li><div><h3>חגים ביומן Google</h3><p>לא חובה: ☰ ← „חגים ← יומן Google” רושם אותם ביומן שתבחרו. ☰ ← הגדרות ← „מחיקת החגים שנרשמו” מוחק אותם שוב.</p></div></li></ol></section>
+  <section id="he-faq"><h2>שאלות נפוצות</h2><div class="faq"><details><summary>האפליקציה באמת בחינם?</summary><p>כן. אין מנוי, אין רכישות בתוך האפליקציה ואין פרסומות.</p></details><details><summary>איפה נשמרים האירועים שלי?</summary><p>ביומן Google שלכם בטלפון. לאפליקציה אין שרת משלה והיא לא שולחת את המידע שלכם לשום מקום. הגדרות כמו העיר והשפה נשמרות בטלפון בלבד.</p></details><details><summary>יש גרסה לאייפון?</summary><p>עדיין לא. LuachPlus פועלת באנדרואיד 8.0 ומעלה.</p></details><details><summary>איך מחושב תאריך היארצייט?</summary><p>לפי התאריך העברי של הפטירה, לפי הכללים המקובלים לאדר בשנה מעוברת ול־ל׳ חשון ול׳ כסלו. אם הפטירה הייתה אחרי השקיעה, מסמנים זאת, ונלקח היום העברי הבא.</p></details><details><summary>רשמתי חגים ביומן Google ורוצה למחוק אותם</summary><p>☰ ← הגדרות ← „מחיקת החגים שנרשמו”, ובוחרים את היומן. כל מה שהאפליקציה רשמה נמחק בבת אחת; האירועים שלכם והיארצייטים נשארים.</p></details><details><summary>כמה דקות לפני השקיעה מדליקים נרות?</summary><p>זה נקבע לפי העיר שבחרתם (למשל 40 דקות בירושלים), ואפשר לשנות ב־☰ ← הגדרות ← הדלקת נרות.</p></details><details><summary>יש לי רעיון או מצאתי טעות</summary><p>כתבו ל־apps@toradoctor.com. אנחנו קוראים כל הודעה.</p></details></div></section>
+  <section id="he-shots"><h2>צילומי מסך</h2><div class="shots"><figure><img loading="lazy" src="shots/he-1.webp" alt="לוח עברי ולועזי ביחד" width="420" height="747"><figcaption>לוח עברי ולועזי ביחד</figcaption></figure><figure><img loading="lazy" src="shots/he-2.webp" alt="דפדוף לפי חודשים עבריים" width="420" height="747"><figcaption>דפדוף לפי חודשים עבריים</figcaption></figure><figure><img loading="lazy" src="shots/he-3.webp" alt="חגים, פרשת השבוע וזמני הדלקת נרות" width="420" height="747"><figcaption>חגים, פרשת השבוע וזמני הדלקת נרות</figcaption></figure><figure><img loading="lazy" src="shots/he-4.webp" alt="זמני היום לעיר שלכם" width="420" height="747"><figcaption>זמני היום לעיר שלכם</figcaption></figure><figure><img loading="lazy" src="shots/he-5.webp" alt="אירועים לפי תאריך עברי — ישר ליומן Google" width="420" height="747"><figcaption>אירועים לפי תאריך עברי — ישר ליומן Google</figcaption></figure></div></section>
+  <section id="he-contact"><h2>יצירת קשר ופיתוח</h2>
+    <div class="cols">
+      <div class="card"><h3>יצירת קשר</h3><p>שאלות, רעיונות ודיווח על תקלות:</p><div class="copyrow"><span class="val">apps@toradoctor.com</span><button type="button" class="copy" data-v="apps@toradoctor.com">העתקה</button><a class="btn sm wa" href="https://wa.me/4917661261450" target="_blank" rel="noopener">WhatsApp</a></div></div>
+      <div class="card"><h3>אתרים ואפליקציות</h3><p>LuachPlus פותחה על ידי Tora Doctor. אנו מפתחים גם אתרים ואפליקציות לקהילות, לעסקים ולפרויקטים יהודיים.</p><div class="copyrow"><a class="btn sm gold" href="mailto:apps@toradoctor.com?subject=פיתוח%20אתר%20/%20אפליקציה">apps@toradoctor.com</a><a class="btn sm wa" href="https://wa.me/4917661261450" target="_blank" rel="noopener">WhatsApp</a></div></div>
+    </div>
+  </section>
+  <div class="final"><img src="shots/icon.webp" alt="" width="64" height="64"><div><h2>LuachPlus</h2><p>לוח עברי ולועזי ביחד</p></div><a class="btn play" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=iw" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>הורדה ב־Google Play</a></div>
+</main>
+<footer><div class="wrap">
+  <span>© 2026 <a href="/">Tora Doctor</a></span><span>מייסד ומפתח: Shaul Nekrich</span><a href="privacy.html">מדיניות פרטיות</a><a href="#he-top">למעלה</a>
+</div></footer>
+</div>
+<div class="lang" data-lang="ru" lang="ru" dir="ltr" hidden>
+<header class="bar"><div class="wrap">
+  <a class="brand" href="#ru-top"><img src="shots/icon.webp" alt="" width="34" height="34"><span>Luach<b>Plus</b></span></a>
+  <nav class="nav" aria-label="LuachPlus"><a href="#ru-features">Возможности</a><a href="#ru-guide">Как начать</a><a href="#ru-faq">Вопросы</a><a href="#ru-shots">Скриншоты</a></nav>
+  <a class="getlink" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=ru" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Google Play</a>
+  <div class="langs"><a href="#en" hreflang="en">EN</a><a href="#he" hreflang="he">עב</a><a href="#ru" hreflang="ru" aria-current="true">RU</a><a href="#de" hreflang="de">DE</a></div>
+</div></header>
+<main class="wrap" id="ru-top">
+  <div class="hero">
+    <div>
+      <div class="eyebrow"><img src="shots/icon.webp" alt="" width="44" height="44"><span>LuachPlus · <a href="/">от Tora Doctor</a></span></div>
+      <h1>Еврейский и обычный календарь в одном</h1>
+      <p class="src">Бесплатное приложение для Android</p>
+      <p class="lead">Праздники, недельная глава, время свечей и зманим для вашего города — вместе с вашими событиями из Google Календаря. Йорцайт или день рождения по еврейской дате вносится один раз и стоит в календаре каждый год.</p>
+      <div class="cta"><a class="btn play" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=ru" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Скачать в Google Play</a><a class="btn ghost" href="#ru-guide">Как начать</a></div>
+      <ul class="facts"><li>Бесплатно</li><li>Без рекламы</li><li>Без регистрации</li><li>Русский · עברית · English · Deutsch</li></ul>
+    </div>
+    <div class="phones" aria-hidden="true">
+      <div class="phone b"><img src="shots/ru-hero3.webp" alt="" width="360" height="640"></div>
+      <div class="phone a"><img src="shots/ru-hero1.webp" alt="" width="360" height="640"></div>
+    </div>
+  </div>
+  <div class="today" data-today hidden><div class="lbl">Сегодня в календаре<small>считается на этой странице так же, как в приложении</small></div><div class="cell"><span>Еврейская дата</span><b data-v="0"></b><small data-s="0"></small></div><div class="cell"><span>Недельная глава</span><b data-v="1"></b><small data-s="1"></small></div><div class="cell"><span>Ближайший праздник</span><b data-v="2"></b><small data-s="2"></small></div></div>
+  <section id="ru-features"><h2>Возможности</h2><div class="feats"><div class="feat"><h3>Два календаря в одной сетке</h3><p>В каждом дне обе даты. Листайте по обычным или по еврейским месяцам и переходите к любой дате.</p></div><div class="feat"><h3>Праздники и главы</h3><p>Все праздники, посты, Рош ходеш, особые субботы и счёт Омера. Обычай Израиля или диаспоры.</p></div><div class="feat"><h3>Свечи и зманим</h3><p>Зажигание свечей и авдала, восход, конец времени Шма и молитвы, минха, плаг, закат и выход звёзд — для вашего города или по GPS.</p></div><div class="feat"><h3>События по еврейской дате</h3><p>День рождения или йорцайт повторяется каждый год (или каждый месяц) по еврейской дате — прямо в Google Календаре.</p></div><div class="feat"><h3>Йорцайт</h3><p>Дата смерти вводится по еврейскому или обычному календарю, с учётом заката. Даты встают в календарь на годы вперёд, а для родных готов текст напоминания.</p></div><div class="feat"><h3>Напоминания</h3><p>Зажигание свечей, счёт Омера, начало и конец постов и йорцайт вечером накануне.</p></div><div class="feat"><h3>Виджет на главный экран</h3><p>Еврейская дата, недельная глава и время свечей — с одного взгляда.</p></div><div class="feat"><h3>Google Календарь</h3><p>Ваши события видны в сетке. Их можно создавать, менять и удалять прямо в приложении. Событие на несколько дней — одной полосой.</p></div><div class="feat"><h3>Четыре языка</h3><p>Русский, иврит, английский и немецкий. Названия праздников — на языке приложения или на выбранном языке.</p></div></div></section>
+  <section id="ru-guide"><h2>Как начать</h2><ol class="steps"><li><div><h3>Установка</h3><p>Скачайте LuachPlus в Google Play и разрешите доступ к календарю, чтобы ваши события появились в сетке.</p></div></li><li><div><h3>Город</h3><p>☰ → Город, или «Определить по местоположению» в ☰ → Настройки. Город задаёт обычай Израиля или диаспоры и минуты зажигания свечей; и то и другое можно там же изменить.</p></div></li><li><div><h3>Событие</h3><p>Нажмите «+», выберите обычную или еврейскую дату и «Повтор: каждый год по еврейской дате» — для дня рождения или йорцайта.</p></div></li><li><div><h3>Йорцайт</h3><p>☰ → Йорцайт → «+ Добавить». Укажите имя и дату смерти — даты встанут в календарь на годы вперёд.</p></div></li><li><div><h3>Напоминания и виджет</h3><p>☰ → Настройки → Напоминания. Там же — «Виджет на главный экран».</p></div></li><li><div><h3>Праздники в Google Календаре</h3><p>По желанию: ☰ → «Праздники → Google Календарь» записывает их в выбранный календарь. ☰ → Настройки → «Удалить записанные праздники» убирает их обратно.</p></div></li></ol></section>
+  <section id="ru-faq"><h2>Частые вопросы</h2><div class="faq"><details><summary>Это правда бесплатно?</summary><p>Да. Без подписки, без покупок в приложении и без рекламы.</p></details><details><summary>Где хранятся мои события?</summary><p>В вашем Google Календаре на телефоне. У приложения нет своего сервера, и ваши данные никуда не отправляются. Настройки, например город и язык, хранятся только в телефоне.</p></details><details><summary>Есть ли версия для iPhone?</summary><p>Пока нет. LuachPlus работает на Android 8.0 и новее.</p></details><details><summary>Как считается дата йорцайта?</summary><p>По еврейской дате смерти, по принятым правилам для Адара в високосный год и для 30 Хешвана и 30 Кислева. Если смерть была после заката, отметьте это — берётся следующий еврейский день.</p></details><details><summary>Я записал праздники в Google Календарь и хочу их убрать</summary><p>☰ → Настройки → «Удалить записанные праздники», затем выберите календарь. Всё, что записало приложение, удалится разом; ваши события и йорцайты останутся.</p></details><details><summary>За сколько минут до заката зажигают свечи?</summary><p>Это задаётся выбранным городом (например, 40 минут в Иерусалиме) и меняется в ☰ → Настройки → Зажигание свечей.</p></details><details><summary>Есть идея или нашли ошибку</summary><p>Напишите на apps@toradoctor.com — мы читаем все письма.</p></details></div></section>
+  <section id="ru-shots"><h2>Скриншоты</h2><div class="shots"><figure><img loading="lazy" src="shots/ru-1.webp" alt="Еврейский и обычный календарь в одной сетке" width="420" height="747"><figcaption>Еврейский и обычный календарь в одной сетке</figcaption></figure><figure><img loading="lazy" src="shots/ru-2.webp" alt="Месяцы по еврейскому календарю" width="420" height="747"><figcaption>Месяцы по еврейскому календарю</figcaption></figure><figure><img loading="lazy" src="shots/ru-3.webp" alt="Праздники, глава недели и время свечей" width="420" height="747"><figcaption>Праздники, глава недели и время свечей</figcaption></figure><figure><img loading="lazy" src="shots/ru-4.webp" alt="Зманим для вашего города" width="420" height="747"><figcaption>Зманим для вашего города</figcaption></figure><figure><img loading="lazy" src="shots/ru-5.webp" alt="События по еврейской дате — прямо в Google Календарь" width="420" height="747"><figcaption>События по еврейской дате — прямо в Google Календарь</figcaption></figure></div></section>
+  <section id="ru-contact"><h2>Связь и разработка</h2>
+    <div class="cols">
+      <div class="card"><h3>Связь</h3><p>Вопросы, идеи и сообщения об ошибках:</p><div class="copyrow"><span class="val">apps@toradoctor.com</span><button type="button" class="copy" data-v="apps@toradoctor.com">Копировать</button><a class="btn sm wa" href="https://wa.me/4917661261450" target="_blank" rel="noopener">WhatsApp</a></div></div>
+      <div class="card"><h3>Сайты и приложения</h3><p>LuachPlus создан Tora Doctor. Мы разрабатываем сайты и приложения для общин, бизнеса и еврейских проектов.</p><div class="copyrow"><a class="btn sm gold" href="mailto:apps@toradoctor.com?subject=Разработка%20сайта%20/%20приложения">apps@toradoctor.com</a><a class="btn sm wa" href="https://wa.me/4917661261450" target="_blank" rel="noopener">WhatsApp</a></div></div>
+    </div>
+  </section>
+  <div class="final"><img src="shots/icon.webp" alt="" width="64" height="64"><div><h2>LuachPlus</h2><p>Еврейский и обычный календарь в одном</p></div><a class="btn play" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=ru" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Скачать в Google Play</a></div>
+</main>
+<footer><div class="wrap">
+  <span>© 2026 <a href="/">Tora Doctor</a></span><span>Основатель и разработчик: Shaul Nekrich</span><a href="privacy.html">Политика конфиденциальности</a><a href="#ru-top">Наверх</a>
+</div></footer>
+</div>
+<div class="lang" data-lang="de" lang="de" dir="ltr" hidden>
+<header class="bar"><div class="wrap">
+  <a class="brand" href="#de-top"><img src="shots/icon.webp" alt="" width="34" height="34"><span>Luach<b>Plus</b></span></a>
+  <nav class="nav" aria-label="LuachPlus"><a href="#de-features">Funktionen</a><a href="#de-guide">Erste Schritte</a><a href="#de-faq">Fragen</a><a href="#de-shots">Screenshots</a></nav>
+  <a class="getlink" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=de" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Google Play</a>
+  <div class="langs"><a href="#en" hreflang="en">EN</a><a href="#he" hreflang="he">עב</a><a href="#ru" hreflang="ru">RU</a><a href="#de" hreflang="de" aria-current="true">DE</a></div>
+</div></header>
+<main class="wrap" id="de-top">
+  <div class="hero">
+    <div>
+      <div class="eyebrow"><img src="shots/icon.webp" alt="" width="44" height="44"><span>LuachPlus · <a href="/">von Tora Doctor</a></span></div>
+      <h1>Jüdischer und gregorianischer Kalender in einem</h1>
+      <p class="src">Kostenlose Android-App</p>
+      <p class="lead">Feiertage, Wochenabschnitt, Kerzenzünden und Zmanim für Ihre Stadt — zusammen mit Ihren eigenen Terminen aus Google Kalender. Eine Jahrzeit oder ein Geburtstag nach jüdischem Datum wird einmal eingetragen und steht jedes Jahr im Kalender.</p>
+      <div class="cta"><a class="btn play" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=de" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Bei Google Play laden</a><a class="btn ghost" href="#de-guide">Erste Schritte</a></div>
+      <ul class="facts"><li>Kostenlos</li><li>Ohne Werbung</li><li>Ohne Anmeldung</li><li>Deutsch · עברית · English · Русский</li></ul>
+    </div>
+    <div class="phones" aria-hidden="true">
+      <div class="phone b"><img src="shots/de-hero3.webp" alt="" width="360" height="640"></div>
+      <div class="phone a"><img src="shots/de-hero1.webp" alt="" width="360" height="640"></div>
+    </div>
+  </div>
+  <div class="today" data-today hidden><div class="lbl">Heute im Kalender<small>auf dieser Seite berechnet, genau wie in der App</small></div><div class="cell"><span>Jüdisches Datum</span><b data-v="0"></b><small data-s="0"></small></div><div class="cell"><span>Wochenabschnitt</span><b data-v="1"></b><small data-s="1"></small></div><div class="cell"><span>Nächster Feiertag</span><b data-v="2"></b><small data-s="2"></small></div></div>
+  <section id="de-features"><h2>Funktionen</h2><div class="feats"><div class="feat"><h3>Zwei Kalender in einem Raster</h3><p>Jeder Tag zeigt beide Daten. Blättern Sie nach gregorianischen oder jüdischen Monaten und springen Sie zu jedem Datum.</p></div><div class="feat"><h3>Feiertage und Wochenabschnitt</h3><p>Alle Feiertage, Fasttage, Rosch Chodesch, besondere Schabbatot und das Omerzählen. Brauch Israels oder der Diaspora.</p></div><div class="feat"><h3>Kerzenzünden und Zmanim</h3><p>Kerzenzünden und Hawdala, Sonnenaufgang, spätestes Schma und Tefila, Mincha, Plag, Sonnenuntergang und Nachteinbruch — für Ihre Stadt oder per GPS.</p></div><div class="feat"><h3>Termine nach jüdischem Datum</h3><p>Ein Geburtstag oder eine Jahrzeit wiederholt sich jedes Jahr (oder jeden Monat) am jüdischen Datum — direkt in Google Kalender.</p></div><div class="feat"><h3>Jahrzeit</h3><p>Das Sterbedatum wird nach jüdischem oder gregorianischem Kalender eingegeben, vor oder nach Sonnenuntergang. Die Daten stehen für Jahre im Voraus im Kalender, mit einem fertigen Text für Angehörige.</p></div><div class="feat"><h3>Erinnerungen</h3><p>Kerzenzünden, Omerzählen, Beginn und Ende der Fasttage und die Jahrzeit am Vorabend.</p></div><div class="feat"><h3>Widget für den Startbildschirm</h3><p>Jüdisches Datum, Wochenabschnitt und Zeit des Kerzenzündens auf einen Blick.</p></div><div class="feat"><h3>Google Kalender</h3><p>Ihre Termine erscheinen im Raster. Sie werden direkt in der App erstellt, geändert und gelöscht. Mehrtägige Termine als ein Balken.</p></div><div class="feat"><h3>Vier Sprachen</h3><p>Deutsch, Hebräisch, Englisch und Russisch. Feiertagsnamen in der App-Sprache oder in einer Sprache Ihrer Wahl.</p></div></div></section>
+  <section id="de-guide"><h2>Erste Schritte</h2><ol class="steps"><li><div><h3>Installieren</h3><p>Laden Sie LuachPlus bei Google Play und erlauben Sie den Zugriff auf den Kalender, damit Ihre Termine im Raster erscheinen.</p></div></li><li><div><h3>Stadt wählen</h3><p>☰ → Stadt, oder „Standort verwenden“ unter ☰ → Einstellungen. Die Stadt bestimmt den Brauch Israels oder der Diaspora und die Minuten für das Kerzenzünden; beides lässt sich dort ändern.</p></div></li><li><div><h3>Termin eintragen</h3><p>Tippen Sie auf „+“, wählen Sie ein gregorianisches oder jüdisches Datum und „Wiederholung: jährlich nach jüdischem Datum“ für einen Geburtstag oder eine Jahrzeit.</p></div></li><li><div><h3>Jahrzeit</h3><p>☰ → Jahrzeit → „+ Hinzufügen“. Name und Sterbedatum eingeben — die Daten stehen für Jahre im Voraus im Kalender.</p></div></li><li><div><h3>Erinnerungen und Widget</h3><p>☰ → Einstellungen → Erinnerungen. Am selben Ort: „Widget für den Startbildschirm“.</p></div></li><li><div><h3>Feiertage in Google Kalender</h3><p>Optional: ☰ → „Feiertage → Google Kalender“ trägt sie in einen Kalender Ihrer Wahl ein. ☰ → Einstellungen → „Eingetragene Feiertage löschen“ entfernt sie wieder.</p></div></li></ol></section>
+  <section id="de-faq"><h2>Häufige Fragen</h2><div class="faq"><details><summary>Ist die App wirklich kostenlos?</summary><p>Ja. Kein Abo, keine In-App-Käufe und keine Werbung.</p></details><details><summary>Wo werden meine Termine gespeichert?</summary><p>In Ihrem eigenen Google Kalender auf dem Telefon. Die App hat keinen eigenen Server und sendet Ihre Daten nirgendwohin. Einstellungen wie Stadt und Sprache bleiben auf dem Telefon.</p></details><details><summary>Gibt es eine iPhone-Version?</summary><p>Noch nicht. LuachPlus läuft ab Android 8.0.</p></details><details><summary>Wie wird das Datum der Jahrzeit berechnet?</summary><p>Nach dem jüdischen Sterbedatum, nach den üblichen Regeln für Adar im Schaltjahr und für den 30. Cheschwan und 30. Kislew. Verstarb die Person nach Sonnenuntergang, markieren Sie das — dann gilt der folgende jüdische Tag.</p></details><details><summary>Ich habe Feiertage in Google Kalender eingetragen und möchte sie entfernen</summary><p>☰ → Einstellungen → „Eingetragene Feiertage löschen“ und den Kalender wählen. Alles, was die App eingetragen hat, wird auf einmal gelöscht; Ihre eigenen Termine und Jahrzeiten bleiben.</p></details><details><summary>Wie viele Minuten vor Sonnenuntergang werden die Kerzen gezündet?</summary><p>Das richtet sich nach der gewählten Stadt (zum Beispiel 40 Minuten in Jerusalem) und lässt sich unter ☰ → Einstellungen → Kerzenzünden ändern.</p></details><details><summary>Ich habe eine Idee oder einen Fehler gefunden</summary><p>Schreiben Sie an apps@toradoctor.com — wir lesen jede Nachricht.</p></details></div></section>
+  <section id="de-shots"><h2>Screenshots</h2><div class="shots"><figure><img loading="lazy" src="shots/de-1.webp" alt="Jüdischer und gregorianischer Kalender in einem" width="420" height="747"><figcaption>Jüdischer und gregorianischer Kalender in einem</figcaption></figure><figure><img loading="lazy" src="shots/de-2.webp" alt="Monate nach jüdischem Kalender" width="420" height="747"><figcaption>Monate nach jüdischem Kalender</figcaption></figure><figure><img loading="lazy" src="shots/de-3.webp" alt="Feiertage, Wochenabschnitt und Kerzenzünden" width="420" height="747"><figcaption>Feiertage, Wochenabschnitt und Kerzenzünden</figcaption></figure><figure><img loading="lazy" src="shots/de-4.webp" alt="Zmanim für Ihre Stadt" width="420" height="747"><figcaption>Zmanim für Ihre Stadt</figcaption></figure><figure><img loading="lazy" src="shots/de-5.webp" alt="Termine nach jüdischem Datum — direkt in Google Kalender" width="420" height="747"><figcaption>Termine nach jüdischem Datum — direkt in Google Kalender</figcaption></figure></div></section>
+  <section id="de-contact"><h2>Kontakt und Entwicklung</h2>
+    <div class="cols">
+      <div class="card"><h3>Kontakt</h3><p>Fragen, Ideen und Fehlermeldungen:</p><div class="copyrow"><span class="val">apps@toradoctor.com</span><button type="button" class="copy" data-v="apps@toradoctor.com">Kopieren</button><a class="btn sm wa" href="https://wa.me/4917661261450" target="_blank" rel="noopener">WhatsApp</a></div></div>
+      <div class="card"><h3>Websites und Apps</h3><p>LuachPlus wurde von Tora Doctor entwickelt. Wir entwickeln auch Websites und Apps für Gemeinden, Unternehmen und jüdische Projekte.</p><div class="copyrow"><a class="btn sm gold" href="mailto:apps@toradoctor.com?subject=Website-%20/%20App-Entwicklung">apps@toradoctor.com</a><a class="btn sm wa" href="https://wa.me/4917661261450" target="_blank" rel="noopener">WhatsApp</a></div></div>
+    </div>
+  </section>
+  <div class="final"><img src="shots/icon.webp" alt="" width="64" height="64"><div><h2>LuachPlus</h2><p>Jüdischer und gregorianischer Kalender in einem</p></div><a class="btn play" href="https://play.google.com/store/apps/details?id=com.toradoctor.luach&amp;hl=de" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#8fb8ff" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.6-.6-1.1V3.3c0-.5.2-.9.6-1.1z"/><path fill="#f3c55a" d="m16.8 8.6-3.4 3.4 3.4 3.4 3.9-2.2c.8-.5.8-1.7 0-2.2z"/><path fill="#9db0d8" d="M3.6 2.2c.3-.2.8-.2 1.2 0l12 6.4-3.4 3.4z"/><path fill="#2c56b8" d="M13.4 12l3.4 3.4-12 6.4c-.4.2-.9.2-1.2 0z"/></svg>Bei Google Play laden</a></div>
+</main>
+<footer><div class="wrap">
+  <span>© 2026 <a href="/">Tora Doctor</a></span><span>Gründer und Entwickler: Shaul Nekrich</span><a href="privacy.html">Datenschutz</a><a href="#de-top">Nach oben</a>
+</div></footer>
+</div>
+
+<script>
+/* Луах — расчёты еврейского календаря (порт из Java, сверено с Hebcal).
+   Месяцы: 1 ניסן … 7 תשרי … 12 אדר (אדר א׳ в високосный), 13 אדר ב׳.
+   abs — номер дня (Rata Die), 1 = 1 января 1 г. н.э. */
+(function (G) {
+  'use strict';
+  var EPOCH = -1373427, RD_EPOCH_DAY = 719163;
+  var NISAN = 1, IYAR = 2, SIVAN = 3, TAMUZ = 4, AV = 5, ELUL = 6, TISHREI = 7, CHESHVAN = 8,
+      KISLEV = 9, TEVET = 10, SHVAT = 11, ADAR = 12, ADAR2 = 13;
+  function fdiv(a, b) { return Math.floor(a / b); }
+  function mod(a, b) { return a - b * Math.floor(a / b); }
+
+  function isLeap(y) { return mod(7 * y + 1, 19) < 7; }
+  function lastMonth(y) { return isLeap(y) ? 13 : 12; }
+  var elapsedCache = {};
+  function elapsed(y) {
+    var c = elapsedCache[y]; if (c !== undefined) return c;
+    var months = fdiv(235 * y - 234, 19);
+    var parts = 12084 + 13753 * months;
+    var day = 29 * months + fdiv(parts, 25920);
+    if (mod(3 * (day + 1), 7) < 3) day++;
+    elapsedCache[y] = day; return day;
+  }
+  function delay(y) {
+    var a = elapsed(y - 1), b = elapsed(y), c = elapsed(y + 1);
+    if (c - b === 356) return 2;
+    if (b - a === 382) return 1;
+    return 0;
+  }
+  var nyCache = {};
+  function newYear(y) {
+    var c = nyCache[y]; if (c !== undefined) return c;
+    c = EPOCH + elapsed(y) + delay(y); nyCache[y] = c; return c;
+  }
+  function daysInYear(y) { return newYear(y + 1) - newYear(y); }
+  function longCheshvan(y) { return daysInYear(y) % 10 === 5; }
+  function shortKislev(y) { return daysInYear(y) % 10 === 3; }
+  function monthLength(y, m) {
+    switch (m) {
+      case IYAR: case TAMUZ: case ELUL: case TEVET: case ADAR2: return 29;
+      case ADAR: return isLeap(y) ? 30 : 29;
+      case CHESHVAN: return longCheshvan(y) ? 30 : 29;
+      case KISLEV: return shortKislev(y) ? 29 : 30;
+      default: return 30;
+    }
+  }
+  function toAbs(y, m, d) {
+    var r = newYear(y) + d - 1, mm;
+    if (m < TISHREI) {
+      var last = lastMonth(y);
+      for (mm = TISHREI; mm <= last; mm++) r += monthLength(y, mm);
+      for (mm = NISAN; mm < m; mm++) r += monthLength(y, mm);
+    } else {
+      for (mm = TISHREI; mm < m; mm++) r += monthLength(y, mm);
+    }
+    return r;
+  }
+  var hCache = {};
+  function fromAbs(abs) {
+    var c = hCache[abs]; if (c) return c;
+    var approx = fdiv(98496 * (abs - EPOCH), 35975351) + 1;
+    var y = approx - 1;
+    while (newYear(y + 1) <= abs) y++;
+    var m = abs < toAbs(y, NISAN, 1) ? TISHREI : NISAN;
+    while (abs > toAbs(y, m, monthLength(y, m))) m++;
+    var d = abs - toAbs(y, m, 1) + 1;
+    c = { year: y, month: m, day: d, abs: abs };
+    hCache[abs] = c; return c;
+  }
+  function dow(abs) { return mod(abs, 7); } // 0 = воскресенье
+  function nextMonth(y, m) {
+    if (m === ELUL) return [y + 1, TISHREI];
+    if (m === lastMonth(y)) return [y, NISAN];
+    return [y, m + 1];
+  }
+  function prevMonth(y, m) {
+    if (m === TISHREI) return [y - 1, ELUL];
+    if (m === NISAN) return [y, lastMonth(y)];
+    return [y, m - 1];
+  }
+  /* Григорианский календарь: {y, m (1-12), d} */
+  function greg(abs) {
+    var dt = new Date((abs - RD_EPOCH_DAY) * 86400000);
+    return { y: dt.getUTCFullYear(), m: dt.getUTCMonth() + 1, d: dt.getUTCDate() };
+  }
+  function absOf(y, m, d) { return Math.round(Date.UTC(y, m - 1, d) / 86400000) + RD_EPOCH_DAY; }
+  function daysInGregMonth(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+
+  var HE_MONTHS = { 1: 'ניסן', 2: 'אייר', 3: 'סיון', 4: 'תמוז', 5: 'אב', 6: 'אלול', 7: 'תשרי', 8: 'חשון', 9: 'כסלו', 10: 'טבת', 11: 'שבט', 13: 'אדר ב׳' };
+  var RU_MONTHS = { 1: 'Нисан', 2: 'Ияр', 3: 'Сиван', 4: 'Тамуз', 5: 'Ав', 6: 'Элул', 7: 'Тишрей', 8: 'Хешван', 9: 'Кислев', 10: 'Тевет', 11: 'Шват', 13: 'Адар II' };
+  function monthHe(y, m) { return m === ADAR ? (isLeap(y) ? 'אדר א׳' : 'אדר') : HE_MONTHS[m]; }
+  function monthRu(y, m) { return m === ADAR ? (isLeap(y) ? 'Адар I' : 'Адар') : RU_MONTHS[m]; }
+
+  // ---------- Гематрия ----------
+  var ONES = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט'];
+  var TENS = ['', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ'];
+  var HUND = ['', 'ק', 'ר', 'ש', 'ת', 'תק', 'תר', 'תש', 'תת', 'תתק'];
+  function gPlain(n) {
+    n = n % 1000;
+    var s = HUND[fdiv(n, 100)], r = n % 100;
+    if (r === 15) s += 'טו'; else if (r === 16) s += 'טז'; else s += TENS[fdiv(r, 10)] + ONES[r % 10];
+    return s;
+  }
+  function gPunct(n) {
+    var s = gPlain(n);
+    if (s.length === 0) return s;
+    if (s.length === 1) return s + '׳';
+    return s.slice(0, -1) + '״' + s.slice(-1);
+  }
+  function gYear(y) { return gPlain(fdiv(y, 1000)) + '׳' + gPunct(y % 1000); }
+  function hebString(h) { return gPunct(h.day) + ' ' + monthHe(h.year, h.month) + ' ' + gYear(h.year); }
+  function ruString(h) { return h.day + ' ' + monthRu(h.year, h.month) + ' ' + h.year; }
+
+  // ---------- Праздники ----------
+  var YOMTOV = 1, EREV = 2, CHOL = 3, MINOR = 4, FAST = 5, RC = 6, MODERN = 7;
+  function selichotShabbat(yearOfElul) {
+    var rh = newYear(yearOfElul + 1), s = rh - 5;
+    while (dow(s) !== 6) s--;
+    return s;
+  }
+  var holCache = {};
+  function holidays(abs, il) {
+    var key = abs + (il ? 'i' : 'd');
+    if (holCache[key]) return holCache[key];
+    var h = fromAbs(abs), l = [], y = h.year, m = h.month, d = h.day, w = dow(abs);
+    var leap = isLeap(y), pm = leap ? ADAR2 : ADAR;
+    function add(he, ru, t, key, n) { l.push({ he: he, ru: ru, type: t, key: key, n: n }); }
+    if (d === 30) { var nm = nextMonth(y, m); add('ראש חודש ' + monthHe(nm[0], nm[1]), 'Рош ходеш ' + monthRu(nm[0], nm[1]), RC, 'rc', nm); }
+    else if (d === 1 && m !== TISHREI) add('ראש חודש ' + monthHe(y, m), 'Рош ходеш ' + monthRu(y, m), RC, 'rc', [y, m]);
+    switch (m) {
+      case TISHREI:
+        if (d === 1) add('ראש השנה א׳', 'Рош а-Шана I', YOMTOV, 'rh1');
+        if (d === 2) add('ראש השנה ב׳', 'Рош а-Шана II', YOMTOV, 'rh2');
+        if ((d === 3 && w !== 6) || (d === 4 && w === 0)) add('צום גדליה', 'Пост Гедалии', FAST, 'gedalia');
+        if (d === 9) add('ערב יום כיפור', 'Канун Йом Кипура', EREV, 'erevyk');
+        if (d === 10) add('יום כיפור', 'Йом Кипур', YOMTOV, 'yk');
+        if (d === 14) add('ערב סוכות', 'Канун Суккота', EREV, 'erevsukkot');
+        if (d === 15) add('סוכות א׳', 'Суккот I', YOMTOV, 'sukkot1');
+        if (d === 16) { if (il) add('חול המועד סוכות', 'Холь а-моэд Суккот', CHOL, 'cholsukkot'); else add('סוכות ב׳', 'Суккот II', YOMTOV, 'sukkot2'); }
+        if (d >= 17 && d <= 20) add('חול המועד סוכות', 'Холь а-моэд Суккот', CHOL, 'cholsukkot');
+        if (d === 21) add('הושענא רבה', 'Ошана Раба', CHOL, 'hoshana');
+        if (d === 22) add(il ? 'שמיני עצרת / שמחת תורה' : 'שמיני עצרת', il ? 'Шмини Ацерет / Симхат Тора' : 'Шмини Ацерет', YOMTOV, il ? 'shminiIL' : 'shmini');
+        if (d === 23 && !il) add('שמחת תורה', 'Симхат Тора', YOMTOV, 'simchat');
+        break;
+      case KISLEV: if (d === 24) add('ערב חנוכה', 'Канун Хануки', MINOR, 'erevchanukah'); break;
+      case TEVET: if (d === 10) add('עשרה בטבת', 'Пост 10 Тевета', FAST, 'tevet10'); break;
+      case SHVAT: if (d === 15) add('ט״ו בשבט', 'Ту би-Шват', MINOR, 'tubishvat'); break;
+      case NISAN:
+        if (d === 14) add('ערב פסח', 'Канун Песаха', EREV, 'erevpesach');
+        if (d === 15) add('פסח א׳', 'Песах I', YOMTOV, 'pesach1');
+        if (d === 16) { if (il) add('חול המועד פסח', 'Холь а-моэд Песах', CHOL, 'cholpesach'); else add('פסח ב׳', 'Песах II', YOMTOV, 'pesach2'); }
+        if (d >= 17 && d <= 20) add('חול המועד פסח', 'Холь а-моэд Песах', CHOL, 'cholpesach');
+        if (d === 21) add('שביעי של פסח', 'Седьмой день Песаха', YOMTOV, 'pesach7');
+        if (d === 22 && !il) add('אחרון של פסח', 'Последний день Песаха', YOMTOV, 'pesach8');
+        if (y >= 5711) {
+          var base = toAbs(y, NISAN, 27), bd = dow(base);
+          var shoah = bd === 5 ? base - 1 : (bd === 0 ? base + 1 : base);
+          if (abs === shoah) add('יום השואה', 'День Катастрофы', MODERN, 'shoah');
+        }
+        break;
+      case IYAR:
+        if (y >= 5708) {
+          var atz = toAbs(y, IYAR, 5), ad = dow(atz);
+          if (ad === 5) atz -= 1; else if (ad === 6) atz -= 2; else if (ad === 1 && y >= 5764) atz += 1;
+          if (abs === atz - 1) add('יום הזיכרון', 'День памяти', MODERN, 'zikaron');
+          if (abs === atz) add('יום העצמאות', 'День независимости', MODERN, 'atzmaut');
+        }
+        if (d === 14) add('פסח שני', 'Песах шени', MINOR, 'pesachsheni');
+        if (d === 18) add('ל״ג בעומר', 'Лаг ба-Омер', MINOR, 'lagbaomer');
+        if (d === 28 && y >= 5728) add('יום ירושלים', 'День Иерусалима', MODERN, 'yerushalayim');
+        break;
+      case SIVAN:
+        if (d === 5) add('ערב שבועות', 'Канун Шавуота', EREV, 'erevshavuot');
+        if (d === 6) add(il ? 'שבועות' : 'שבועות א׳', il ? 'Шавуот' : 'Шавуот I', YOMTOV, il ? 'shavuot' : 'shavuot1');
+        if (d === 7 && !il) add('שבועות ב׳', 'Шавуот II', YOMTOV, 'shavuot2');
+        break;
+      case TAMUZ: if ((d === 17 && w !== 6) || (d === 18 && w === 0)) add('צום י״ז בתמוז', 'Пост 17 Тамуза', FAST, 'tammuz17'); break;
+      case AV:
+        if (d === 8 && w !== 5) add('ערב תשעה באב', 'Канун 9 Ава', EREV, 'ereva9');
+        if ((d === 9 && w !== 6) || (d === 10 && w === 0)) add('תשעה באב', '9 Ава', FAST, 'av9');
+        if (d === 15) add('ט״ו באב', 'Ту бе-Ав', MINOR, 'tubeav');
+        break;
+      case ELUL:
+        if (d === 29) add('ערב ראש השנה', 'Канун Рош а-Шана', EREV, 'erevrh');
+        if (w === 6 && abs === selichotShabbat(y)) add('סליחות', 'Слихот', MINOR, 'selichot');
+        break;
+    }
+    if (m === KISLEV || m === TEVET) {
+      var ch = toAbs(y, KISLEV, 25);
+      if (abs >= ch && abs < ch + 8) {
+        var n = abs - ch + 1;
+        add('חנוכה ' + gPunct(n), 'Ханука, день ' + n + (n < 8 ? ' (вечером свечей: ' + (n + 1) + ')' : ''), MINOR, 'chanukah', n);
+      }
+    }
+    if (m === pm) {
+      var fast = toAbs(y, pm, 13);
+      if (dow(fast) === 6) fast -= 2;
+      if (abs === fast) add('תענית אסתר', 'Пост Эстер', FAST, 'esther');
+      if (d === 14) add('פורים', 'Пурим', MINOR, 'purim');
+      if (d === 15) add('שושן פורים', 'Шушан Пурим', MINOR, 'shushan');
+    } else if (leap && m === ADAR) {
+      if (d === 14) add('פורים קטן', 'Пурим катан', MINOR, 'purimkatan');
+      if (d === 15) add('שושן פורים קטן', 'Шушан Пурим катан', MINOR, 'shushankatan');
+    }
+    holCache[key] = l;
+    return l;
+  }
+  function isYomTov(abs, il) { return holidays(abs, il).some(function (x) { return x.type === YOMTOV; }); }
+  function isRestDay(abs, il) { return dow(abs) === 6 || isYomTov(abs, il); }
+  function hasCandle(abs, il) { return isRestDay(abs + 1, il); }
+  function hasHavdalah(abs, il) { return isRestDay(abs, il) && !isRestDay(abs + 1, il); }
+  function candleAfterNightfall(abs, il) { return isRestDay(abs, il) && dow(abs) !== 5; }
+
+  function specialShabbat(abs) {
+    var l = [];
+    if (dow(abs) !== 6) return l;
+    var h = fromAbs(abs), y = h.year, pm = isLeap(y) ? ADAR2 : ADAR;
+    if (h.month === TISHREI && h.day >= 3 && h.day <= 9) l.push('שבת שובה');
+    var adar1 = toAbs(y, pm, 1), purim = toAbs(y, pm, 14), nisan1 = toAbs(y, NISAN, 1),
+        pesach = toAbs(y, NISAN, 15), av9 = toAbs(y, AV, 9);
+    if (abs <= adar1 && abs > adar1 - 7) l.push('שקלים');
+    if (abs < purim && abs >= purim - 7) l.push('זכור');
+    if (abs <= nisan1 && abs > nisan1 - 7) l.push('החודש');
+    else if (abs <= nisan1 - 7 && abs > nisan1 - 14) l.push('פרה');
+    if (abs < pesach && abs >= pesach - 7) l.push('שבת הגדול');
+    if (abs <= av9 && abs > av9 - 7) l.push('חזון');
+    if (abs > av9 && abs <= av9 + 7) l.push('נחמו');
+    if (h.month !== ELUL) {
+      var len = monthLength(y, h.month), first = len === 30 ? 30 : len + 1;
+      if (h.day < first && h.day + 7 >= first) l.push('מברכים');
+    }
+    return l;
+  }
+  function omerDay(abs) {
+    var h = fromAbs(abs), n = abs - toAbs(h.year, NISAN, 16) + 1;
+    return (n >= 1 && n <= 49) ? n : 0;
+  }
+
+  // ---------- Недельные главы ----------
+  var P_HE = ['בראשית', 'נח', 'לך לך', 'וירא', 'חיי שרה', 'תולדות', 'ויצא', 'וישלח', 'וישב', 'מקץ',
+    'ויגש', 'ויחי', 'שמות', 'וארא', 'בא', 'בשלח', 'יתרו', 'משפטים', 'תרומה', 'תצוה',
+    'כי תשא', 'ויקהל', 'פקודי', 'ויקרא', 'צו', 'שמיני', 'תזריע', 'מצורע', 'אחרי מות', 'קדושים',
+    'אמור', 'בהר', 'בחוקותי', 'במדבר', 'נשא', 'בהעלותך', 'שלח', 'קרח', 'חוקת', 'בלק',
+    'פנחס', 'מטות', 'מסעי', 'דברים', 'ואתחנן', 'עקב', 'ראה', 'שופטים', 'כי תצא', 'כי תבוא',
+    'נצבים', 'וילך', 'האזינו', 'וזאת הברכה'];
+  var P_RU = ['Берешит', 'Ноах', 'Лех леха', 'Ваера', 'Хаей Сара', 'Толдот', 'Ваеце', 'Ваишлах', 'Ваешев', 'Микец',
+    'Ваигаш', 'Ваехи', 'Шмот', 'Ваэра', 'Бо', 'Бешалах', 'Итро', 'Мишпатим', 'Трума', 'Тецаве',
+    'Ки тиса', 'Ваякгель', 'Пкудей', 'Ваикра', 'Цав', 'Шмини', 'Тазриа', 'Мецора', 'Ахарей мот', 'Кдошим',
+    'Эмор', 'Беар', 'Бехукотай', 'Бемидбар', 'Насо', 'Беаалотха', 'Шлах', 'Корах', 'Хукат', 'Балак',
+    'Пинхас', 'Матот', 'Масэй', 'Дварим', 'Ваэтханан', 'Экев', 'Рээ', 'Шофтим', 'Ки теце', 'Ки таво',
+    'Ницавим', 'Ваелех', 'Аазину', 'Везот а-браха'];
+  function reading(a, b) {
+    return { a: a, b: b, he: b >= 0 ? P_HE[a] + '-' + P_HE[b] : P_HE[a], ru: b >= 0 ? P_RU[a] + '-' + P_RU[b] : P_RU[a] };
+  }
+  function holidayShabbat(abs, il) {
+    var h = fromAbs(abs);
+    if (h.month === NISAN) return h.day >= 15 && h.day <= (il ? 21 : 22);
+    if (h.month === SIVAN) return h.day === 6 || (!il && h.day === 7);
+    return false;
+  }
+  function firstShabbatAfter(abs) { var s = abs + 1; while (dow(s) !== 6) s++; return s; }
+  var PAIRS = [41, 50, 38, 21, 26, 28, 31];
+  function bitCount(x) { var c = 0; while (x) { c += x & 1; x >>= 1; } return c; }
+  function choose(y, slots, last) {
+    var leap = isLeap(y), pesach = toAbs(y, NISAN, 15), shavuot = toAbs(y, SIVAN, 6);
+    var chazon = toAbs(y, AV, 9); while (dow(chazon) !== 6) chazon--;
+    var beforePesach = leap ? 27 : 24, need = (last + 1) - slots.length, best = null, bestScore = -1;
+    for (var mask = 0; mask < (1 << PAIRS.length); mask++) {
+      if (bitCount(mask) !== need) continue;
+      if (((mask & 2) !== 0) !== (last === 51)) continue;
+      var comb = {}, i;
+      for (i = 0; i < PAIRS.length; i++) if (mask & (1 << i)) comb[PAIRS[i]] = true;
+      var seq = [];
+      for (var p = 0; p <= last; p++) { if (comb[p]) { seq.push(reading(p, p + 1)); p++; } else seq.push(reading(p, -1)); }
+      if (seq.length !== slots.length) continue;
+      var ok = true;
+      for (i = 0; i < seq.length && ok; i++) {
+        var r = seq[i], s = slots[i], hi = r.b >= 0 ? r.b : r.a, lo = r.a;
+        if (lo <= beforePesach && beforePesach <= hi) {
+          if (s > pesach) ok = false;
+          if (!leap && i + 1 < slots.length && slots[i + 1] < pesach) ok = false;
+        }
+        if (lo <= 33 && 33 <= hi && s > shavuot) ok = false;
+        if (lo <= 43 && 43 <= hi && s !== chazon) ok = false;
+      }
+      if (!ok) continue;
+      var score = 0;
+      for (i = 0; i < PAIRS.length; i++) if (mask & (1 << i)) score += 1 << (PAIRS.length - i);
+      if (score > bestScore) { bestScore = score; best = seq; }
+    }
+    if (!best) { best = []; for (var q = 0; q <= last; q++) best.push(reading(q, -1)); }
+    return best;
+  }
+  var pCache = {};
+  function buildParsha(y, il) {
+    var map = {}, rh = newYear(y), nextRh = newYear(y + 1), rhDow = dow(rh), nextDow = dow(nextRh);
+    var st = toAbs(y, TISHREI, il ? 22 : 23), s;
+    for (s = firstShabbatAfter(rh - 1); s <= st; s += 7) {
+      var h = fromAbs(s);
+      if (h.day >= 3 && h.day <= 9) map[s] = reading((rhDow === 1 || rhDow === 2) ? 51 : 52, -1);
+      else if (h.day >= 11 && h.day <= 14) map[s] = reading(52, -1);
+    }
+    var slots = [];
+    for (s = firstShabbatAfter(st); s < nextRh; s += 7) if (!holidayShabbat(s, il)) slots.push(s);
+    var last = (nextDow === 1 || nextDow === 2) ? 50 : 51;
+    var seq = choose(y, slots, last);
+    for (var i = 0; i < slots.length && i < seq.length; i++) map[slots[i]] = seq[i];
+    return map;
+  }
+  function parshaForShabbat(abs, il) {
+    if (dow(abs) !== 6) return null;
+    var y = fromAbs(abs).year, key = y + (il ? 'i' : 'd');
+    if (!pCache[key]) pCache[key] = buildParsha(y, il);
+    return pCache[key][abs] || null;
+  }
+  function parshaForWeek(abs, il) {
+    var sat = abs + mod(6 - dow(abs), 7);
+    for (var i = 0; i < 6; i++) { var r = parshaForShabbat(sat + 7 * i, il); if (r) return r; }
+    return null;
+  }
+
+  // ---------- Зманим (NOAA) ----------
+  function rad(d) { return d * Math.PI / 180; }
+  function deg(r) { return r * 180 / Math.PI; }
+  /** мс UTC, когда солнце на angle° ниже горизонта; -1 если не бывает */
+  function sunAngle(abs, lat, lon, angle, rising) {
+    var epochDay = abs - RD_EPOCH_DAY, midnight = epochDay * 86400000, jd0 = epochDay + 2440587.5;
+    var minutes = 720 - 4 * lon;
+    for (var it = 0; it < 3; it++) {
+      var jc = (jd0 + minutes / 1440 - 2451545) / 36525;
+      var l0 = (280.46646 + jc * (36000.76983 + jc * 0.0003032)) % 360;
+      var m = 357.52911 + jc * (35999.05029 - 0.0001537 * jc);
+      var e = 0.016708634 - jc * (0.000042037 + 0.0000001267 * jc);
+      var c = Math.sin(rad(m)) * (1.914602 - jc * (0.004817 + 0.000014 * jc)) + Math.sin(rad(2 * m)) * (0.019993 - 0.000101 * jc) + Math.sin(rad(3 * m)) * 0.000289;
+      var omega = 125.04 - 1934.136 * jc;
+      var app = l0 + c - 0.00569 - 0.00478 * Math.sin(rad(omega));
+      var meanOb = 23 + (26 + (21.448 - jc * (46.815 + jc * (0.00059 - jc * 0.001813))) / 60) / 60;
+      var ob = meanOb + 0.00256 * Math.cos(rad(omega));
+      var decl = Math.asin(Math.sin(rad(ob)) * Math.sin(rad(app)));
+      var yy = Math.pow(Math.tan(rad(ob / 2)), 2);
+      var eq = 4 * deg(yy * Math.sin(2 * rad(l0)) - 2 * e * Math.sin(rad(m)) + 4 * e * yy * Math.sin(rad(m)) * Math.cos(2 * rad(l0)) - 0.5 * yy * yy * Math.sin(4 * rad(l0)) - 1.25 * e * e * Math.sin(2 * rad(m)));
+      var cosHa = Math.cos(rad(90 + angle)) / (Math.cos(rad(lat)) * Math.cos(decl)) - Math.tan(rad(lat)) * Math.tan(decl);
+      if (cosHa > 1 || cosHa < -1) return -1;
+      var ha = deg(Math.acos(cosHa)), noon = 720 - 4 * lon - eq;
+      minutes = rising ? noon - 4 * ha : noon + 4 * ha;
+    }
+    return midnight + Math.round(minutes * 60000);
+  }
+  function zmanim(abs, lat, lon) {
+    var rise = sunAngle(abs, lat, lon, 0.833, true), set = sunAngle(abs, lat, lon, 0.833, false);
+    function sh(hours) { return (rise < 0 || set < 0) ? -1 : rise + Math.round((set - rise) / 12 * hours); }
+    return {
+      alot: sunAngle(abs, lat, lon, 16.1, true), misheyakir: sunAngle(abs, lat, lon, 11.5, true),
+      sunrise: rise, shma: sh(3), tfila: sh(4), chatzot: sh(6), minchaG: sh(6.5), minchaK: sh(9.5), plag: sh(10.75),
+      sunset: set, tzeit: sunAngle(abs, lat, lon, 8.5, false)
+    };
+  }
+
+  /* Йорцайт: день годовщины смерти d={year,month,day} в еврейском году hy (правила как в Hebcal / Reingold–Dershowitz) */
+  function yahrzeit(d, hy) {
+    if (hy <= d.year) return -1;
+    var m = d.month, dd = d.day;
+    if (m === CHESHVAN && dd === 30 && monthLength(d.year + 1, CHESHVAN) === 29) return toAbs(hy, KISLEV, 1) - 1;
+    if (m === KISLEV && dd === 30 && monthLength(d.year + 1, KISLEV) === 29) return toAbs(hy, TEVET, 1) - 1;
+    if (m === ADAR2) m = lastMonth(hy);
+    else if (m === ADAR && dd === 30 && !isLeap(hy)) { m = SHVAT; dd = 30; }
+    return toAbs(hy, m, 1) + dd - 1;
+  }
+  G.Luach = {
+    NISAN: NISAN, IYAR: IYAR, SIVAN: SIVAN, TAMUZ: TAMUZ, AV: AV, ELUL: ELUL, TISHREI: TISHREI, CHESHVAN: CHESHVAN,
+    KISLEV: KISLEV, TEVET: TEVET, SHVAT: SHVAT, ADAR: ADAR, ADAR2: ADAR2,
+    YOMTOV: YOMTOV, EREV: EREV, CHOL: CHOL, MINOR: MINOR, FAST: FAST, RC: RC, MODERN: MODERN,
+    RD_EPOCH_DAY: RD_EPOCH_DAY, mod: mod,
+    isLeap: isLeap, lastMonth: lastMonth, newYear: newYear, monthLength: monthLength, toAbs: toAbs, fromAbs: fromAbs,
+    dow: dow, nextMonth: nextMonth, prevMonth: prevMonth, greg: greg, absOf: absOf, daysInGregMonth: daysInGregMonth,
+    monthHe: monthHe, monthRu: monthRu, gPlain: gPlain, gPunct: gPunct, gYear: gYear, hebString: hebString, ruString: ruString,
+    holidays: holidays, isYomTov: isYomTov, isRestDay: isRestDay, hasCandle: hasCandle, hasHavdalah: hasHavdalah,
+    candleAfterNightfall: candleAfterNightfall, specialShabbat: specialShabbat, omerDay: omerDay,
+    parshaForShabbat: parshaForShabbat, parshaForWeek: parshaForWeek, yahrzeit: yahrzeit, sunAngle: sunAngle, zmanim: zmanim
+  };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+(function(G){
+  var I = {};
+  I.langs = [['ru', 'Русский'], ['en', 'English'], ['de', 'Deutsch'], ['he', 'עברית']];
+
+  I.months = {
+    ru: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    de: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    he: ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
+  };
+  I.monthsGen = {
+    ru: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
+    en: I.months.en, de: I.months.de,
+    he: ['בינואר', 'בפברואר', 'במרץ', 'באפריל', 'במאי', 'ביוני', 'ביולי', 'באוגוסט', 'בספטמבר', 'באוקטובר', 'בנובמבר', 'בדצמבר']
+  };
+  I.monthsShort = {
+    ru: ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'],
+    en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    de: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+    he: ['ינו׳', 'פבר׳', 'מרץ', 'אפר׳', 'מאי', 'יוני', 'יולי', 'אוג׳', 'ספט׳', 'אוק׳', 'נוב׳', 'דצמ׳']
+  };
+  I.dow = {
+    ru: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+    en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    de: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Schabbat'],
+    he: ['יום ראשון', 'יום שני', 'יום שלישי', 'יום רביעי', 'יום חמישי', 'יום שישי', 'שבת']
+  };
+  I.dowShort = {
+    ru: ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
+    en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    de: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    he: ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳']
+  };
+  /* Еврейские месяцы: индекс = номер месяца (1 Нисан … 13 Адар II), 12 — Адар (в високосный — Адар I) */
+  I.hMonths = {
+    ru: [null, 'Нисан', 'Ияр', 'Сиван', 'Тамуз', 'Ав', 'Элул', 'Тишрей', 'Хешван', 'Кислев', 'Тевет', 'Шват', 'Адар', 'Адар II'],
+    en: [null, 'Nisan', 'Iyyar', 'Sivan', 'Tamuz', 'Av', 'Elul', 'Tishrei', 'Cheshvan', 'Kislev', 'Tevet', "Sh'vat", 'Adar', 'Adar II'],
+    de: [null, 'Nissan', 'Ijar', 'Siwan', 'Tammus', 'Aw', 'Elul', 'Tischri', 'Cheschwan', 'Kislew', 'Tewet', 'Schwat', 'Adar', 'Adar II']
+  };
+  I.adar1 = { ru: 'Адар I', en: 'Adar I', de: 'Adar I' };
+
+  I.parsha = {
+    en: ['Bereshit', 'Noach', 'Lech-Lecha', 'Vayera', 'Chayei Sara', 'Toldot', 'Vayetzei', 'Vayishlach', 'Vayeshev', 'Miketz',
+      'Vayigash', 'Vayechi', 'Shemot', 'Vaera', 'Bo', 'Beshalach', 'Yitro', 'Mishpatim', 'Terumah', 'Tetzaveh',
+      'Ki Tisa', 'Vayakhel', 'Pekudei', 'Vayikra', 'Tzav', 'Shmini', 'Tazria', 'Metzora', 'Achrei Mot', 'Kedoshim',
+      'Emor', 'Behar', 'Bechukotai', 'Bamidbar', 'Nasso', "Beha'alotcha", "Sh'lach", 'Korach', 'Chukat', 'Balak',
+      'Pinchas', 'Matot', 'Masei', 'Devarim', 'Vaetchanan', 'Eikev', "Re'eh", 'Shoftim', 'Ki Teitzei', 'Ki Tavo',
+      'Nitzavim', 'Vayeilech', "Ha'azinu", 'Vezot Haberakhah'],
+    de: ['Bereschit', 'Noach', 'Lech Lecha', 'Wajera', 'Chaje Sara', 'Toldot', 'Wajeze', 'Wajischlach', 'Wajeschew', 'Mikez',
+      'Wajigasch', 'Wajechi', 'Schemot', 'Waera', 'Bo', 'Beschalach', 'Jitro', 'Mischpatim', 'Teruma', 'Tezawe',
+      'Ki Tissa', 'Wajakhel', 'Pekude', 'Wajikra', 'Zaw', 'Schemini', 'Tasria', 'Mezora', 'Acharej Mot', 'Kedoschim',
+      'Emor', 'Behar', 'Bechukotaj', 'Bemidbar', 'Nasso', 'Behaalotcha', 'Schelach', 'Korach', 'Chukat', 'Balak',
+      'Pinchas', 'Mattot', 'Masse', 'Dewarim', 'Waetchanan', 'Ekew', "Re'eh", 'Schoftim', 'Ki Teze', 'Ki Tawo',
+      'Nizawim', 'Wajelech', 'Haasinu', 'Wesot haBracha']
+  };
+
+  /* Праздники по ключу */
+  I.hol = {
+    rh1: ['Рош а-Шана I', 'Rosh Hashana I', 'Rosch Haschana I'],
+    rh2: ['Рош а-Шана II', 'Rosh Hashana II', 'Rosch Haschana II'],
+    gedalia: ['Пост Гедалии', 'Tzom Gedaliah', 'Fasten Gedalja'],
+    erevyk: ['Канун Йом Кипура', 'Erev Yom Kippur', 'Erew Jom Kippur'],
+    yk: ['Йом Кипур', 'Yom Kippur', 'Jom Kippur'],
+    erevsukkot: ['Канун Суккота', 'Erev Sukkot', 'Erew Sukkot'],
+    sukkot1: ['Суккот I', 'Sukkot I', 'Sukkot I'],
+    sukkot2: ['Суккот II', 'Sukkot II', 'Sukkot II'],
+    cholsukkot: ['Холь а-моэд Суккот', 'Chol HaMoed Sukkot', 'Chol haMoed Sukkot'],
+    hoshana: ['Ошана Раба', 'Hoshana Raba', 'Hoschana Rabba'],
+    shmini: ['Шмини Ацерет', 'Shmini Atzeret', 'Schemini Azeret'],
+    shminiIL: ['Шмини Ацерет / Симхат Тора', 'Shmini Atzeret / Simchat Torah', 'Schemini Azeret / Simchat Tora'],
+    simchat: ['Симхат Тора', 'Simchat Torah', 'Simchat Tora'],
+    erevchanukah: ['Канун Хануки', 'Erev Chanukah', 'Erew Chanukka'],
+    chanukah: ['Ханука, день %1', 'Chanukah, day %1', 'Chanukka, Tag %1'],
+    tevet10: ['Пост 10 Тевета', "Asara B'Tevet", 'Fasten 10. Tewet'],
+    tubishvat: ['Ту би-Шват', "Tu BiShvat", "Tu biSchwat"],
+    erevpesach: ['Канун Песаха', 'Erev Pesach', 'Erew Pessach'],
+    pesach1: ['Песах I', 'Pesach I', 'Pessach I'],
+    pesach2: ['Песах II', 'Pesach II', 'Pessach II'],
+    cholpesach: ['Холь а-моэд Песах', 'Chol HaMoed Pesach', 'Chol haMoed Pessach'],
+    pesach7: ['Седьмой день Песаха', 'Pesach VII', 'Pessach VII'],
+    pesach8: ['Последний день Песаха', 'Pesach VIII', 'Pessach VIII'],
+    shoah: ['День Катастрофы', 'Yom HaShoah', 'Jom haSchoa'],
+    zikaron: ['День памяти', 'Yom HaZikaron', 'Jom haSikaron'],
+    atzmaut: ['День независимости', "Yom HaAtzma'ut", 'Jom haAzmaut'],
+    pesachsheni: ['Песах шени', 'Pesach Sheni', 'Pessach Scheni'],
+    lagbaomer: ['Лаг ба-Омер', 'Lag BaOmer', 'Lag baOmer'],
+    yerushalayim: ['День Иерусалима', 'Yom Yerushalayim', 'Jom Jeruschalajim'],
+    erevshavuot: ['Канун Шавуота', 'Erev Shavuot', 'Erew Schawuot'],
+    shavuot: ['Шавуот', 'Shavuot', 'Schawuot'],
+    shavuot1: ['Шавуот I', 'Shavuot I', 'Schawuot I'],
+    shavuot2: ['Шавуот II', 'Shavuot II', 'Schawuot II'],
+    tammuz17: ['Пост 17 Тамуза', "Tzom Tammuz", 'Fasten 17. Tammus'],
+    ereva9: ['Канун 9 Ава', "Erev Tish'a B'Av", "Erew Tischa beAw"],
+    av9: ['9 Ава', "Tish'a B'Av", 'Tischa beAw'],
+    tubeav: ['Ту бе-Ав', "Tu B'Av", 'Tu beAw'],
+    erevrh: ['Канун Рош а-Шана', 'Erev Rosh Hashana', 'Erew Rosch Haschana'],
+    selichot: ['Слихот', 'Leil Selichot', 'Slichot'],
+    esther: ['Пост Эстер', "Ta'anit Esther", 'Fasten Esther'],
+    purim: ['Пурим', 'Purim', 'Purim'],
+    shushan: ['Шушан Пурим', 'Shushan Purim', 'Schuschan Purim'],
+    purimkatan: ['Пурим катан', 'Purim Katan', 'Purim Katan'],
+    shushankatan: ['Шушан Пурим катан', 'Shushan Purim Katan', 'Schuschan Purim Katan'],
+    rc: ['Рош ходеш %1', 'Rosh Chodesh %1', 'Rosch Chodesch %1']
+  };
+
+  G.LN = I;
+})(window);
+
+(function(){
+  var T={"en": {"c": "Copied", "f": "Select and copy", "t": "LuachPlus — Jewish calendar for Android"}, "he": {"c": "הועתק", "f": "סמנו והעתיקו", "t": "LuachPlus — לוח שנה עברי לאנדרואיד"}, "ru": {"c": "Скопировано", "f": "Выделите и скопируйте", "t": "LuachPlus — еврейский календарь для Android"}, "de": {"c": "Kopiert", "f": "Markieren und kopieren", "t": "LuachPlus — jüdischer Kalender für Android"}};
+  var cur=null;
+  function pick(){
+    var h=(location.hash||'').slice(1), l=h.split('-')[0];
+    if(!T[l]){var n=(navigator.language||'').slice(0,2).toLowerCase();if(n==='iw')n='he';l=T[n]?n:'en';}
+    return {l:l,h:h};
+  }
+  function show(){
+    var r=pick();
+    document.querySelectorAll('.lang').forEach(function(d){d.hidden=d.dataset.lang!==r.l});
+    document.documentElement.lang=r.l;document.documentElement.dir=r.l==='he'?'rtl':'ltr';
+    if(cur!==r.l){document.title=T[r.l].t;if(r.h===r.l||!r.h)window.scrollTo(0,0);cur=r.l;}
+    if(r.h&&r.h!==r.l){var el=document.getElementById(r.h);if(el)el.scrollIntoView();}
+  }
+  window.addEventListener('hashchange',show);show();
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest('.copy');if(!b)return;
+    var v=b.dataset.v,t=T[cur],old=b.textContent;
+    function done(m){b.textContent=m;setTimeout(function(){b.textContent=old},1600)}
+    function sel(){var s=b.previousElementSibling,r=document.createRange();r.selectNodeContents(s);var w=getSelection();w.removeAllRanges();w.addRange(r);done(t.f)}
+    try{navigator.clipboard.writeText(v).then(function(){done(t.c)},sel)}catch(e){sel()}
+  });
+  /* «Сегодня в календаре»: еврейская дата, глава недели, ближайший праздник */
+  try{
+    var L=window.Luach,I=window.LN,now=new Date(),abs=L.absOf(now.getFullYear(),now.getMonth()+1,now.getDate());
+    var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
+    var il=tz==='Asia/Jerusalem'||tz==='Asia/Tel_Aviv';
+    var h=L.fromAbs(abs),p=L.parshaForWeek(abs,il),nx=null,na=0;
+    for(var a=abs;a<abs+120&&!nx;a++){L.holidays(a,il).forEach(function(x){if(!nx&&x.type!==L.RC&&x.type!==L.EREV&&String(x.key).indexOf('erev')!==0){nx=x;na=a}})}
+    var LOC={en:'en-GB',he:'he-IL',ru:'ru-RU',de:'de-DE'};
+    function hMonth(l,y,m){if(l==='he')return L.monthHe(y,m);if(l==='ru')return L.monthRu(y,m);if(m===L.ADAR&&L.isLeap(y))return I.adar1[l];return I.hMonths[l][m]}
+    function gDate(l,a,wd){var g=L.greg(a),d=new Date(g.y,g.m-1,g.d);try{return d.toLocaleDateString(LOC[l],wd?{weekday:'long',day:'numeric',month:'long'}:{day:'numeric',month:'long'})}catch(e){return g.d+'.'+g.m+'.'+g.y}}
+    function holName(l,x){if(l==='he')return x.he;if(l==='ru')return x.ru;var tr=I.hol[x.key];if(!tr)return x.ru;var s=tr[l==='en'?1:2];if(x.key==='chanukah')s=s.replace('%1',x.n);return s}
+    function pName(l,r){if(!r)return '—';if(l==='he')return 'פרשת '+r.he;if(l==='ru')return r.ru;var n=I.parsha[l];return r.b>=0?n[r.a]+'-'+n[r.b]:n[r.a]}
+    document.querySelectorAll('[data-today]').forEach(function(box){
+      var l=box.closest('.lang').dataset.lang,V=box.querySelectorAll('[data-v]'),S=box.querySelectorAll('[data-s]');
+      V[0].textContent=l==='he'?L.hebString(h):(l==='de'?h.day+'. ':h.day+' ')+hMonth(l,h.year,h.month)+' '+h.year;
+      S[0].textContent=l==='he'?gDate(l,abs,true):L.hebString(h);
+      if(l!=='he')S[0].className='he';
+      V[1].textContent=pName(l,p);
+      S[1].textContent=p&&l!=='he'?'פרשת '+p.he:'';
+      if(p&&l!=='he')S[1].className='he';
+      V[2].textContent=nx?holName(l,nx).replace(/\s*\(.*\)\s*$/,''):'—';
+      S[2].textContent=nx?gDate(l,na,true):'';
+      box.hidden=false;
+    });
+  }catch(e){}
+})();
+
+</script>
 </body>
 </html>
